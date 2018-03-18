@@ -5,28 +5,28 @@ var expectFund = web3.toWei(1, "ether");
 
 var Crowdfund = artifacts.require("Crowdfund"); 
 
-contract("Crowdfund", function (accounts) {
-    var crowdfund; 
-    before( async function () { 
+contract("Crowdfund", (accounts) => {
+    let crowdfund; 
+    before( async () => { 
         crowdfund = await Crowdfund.deployed();
     });
 
-    it("should have verifier set correctly", async function () { 
-        var verifier = await crowdfund.verifier();
+    it("should have verifier set correctly", async () => { 
+        let verifier = await crowdfund.verifier();
         assert.equal(expectVerifier, verifier, "The verifier account did not set correctly.");
     });
 
-    it("should have receiver set correctly", async function () {
-        var receiver = await crowdfund.receiver();
+    it("should have receiver set correctly", async () => {
+        let receiver = await crowdfund.receiver();
         assert.equal(expectReceiver, receiver, "The receiver account did not set correctly.");
     });
 
-    it("should keep track of funds", async function(){
+    it("should keep track of funds", async () => {
         await crowdfund.fund({
             from: funder,
             value: expectFund
         });
-        var fund = await crowdfund.funds(funder);
+        let fund = await crowdfund.funds(funder);
         assert.equal(expectFund, fund, "This contract did not keep track of funds properly.");
     });
 });
