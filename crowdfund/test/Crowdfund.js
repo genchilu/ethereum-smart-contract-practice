@@ -19,11 +19,12 @@ let getBalance = (account) => {
 
 contract("Crowdfund", (accounts) => {
     let crowdfund; 
-    before( async () => { 
-        crowdfund = await Crowdfund.deployed();
+
+    beforeEach( async () => { 
+        crowdfund = await Crowdfund.new(expectVerifier, expectReceiver);
     });
 
-    it("should have verifier set correctly", async () => { 
+    it("should have verifier set correctly", async () => {
         let verifier = await crowdfund.verifier();
         assert.equal(expectVerifier, verifier, "The verifier account did not set correctly.");
     });
@@ -42,7 +43,7 @@ contract("Crowdfund", (accounts) => {
         assert.equal(expectFund, fund, "This contract did not keep track of funds properly.");
     });
 
-    it(" should release funds during approval", async () => { 
+    it(" should release funds during approval", async () => {
         let initialReceiverBalance = await getBalance(expectReceiver);
         let initialContractBalance = await getBalance(crowdfund.address);
 
