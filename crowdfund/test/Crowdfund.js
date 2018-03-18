@@ -5,6 +5,18 @@ var expectFund = web3.toWei(1, "ether");
 
 var Crowdfund = artifacts.require("Crowdfund"); 
 
+let getBalance = (account) => { 
+    return new Promise( (resolve, error) => { 
+        web3. eth.getBalance(account, (err, balance) => {
+            if (err) { 
+                error( err); 
+            } else { 
+                resolve( balance);
+            }
+        });
+    }); 
+};
+
 contract("Crowdfund", (accounts) => {
     let crowdfund; 
     before( async () => { 
@@ -28,5 +40,25 @@ contract("Crowdfund", (accounts) => {
         });
         let fund = await crowdfund.funds(funder);
         assert.equal(expectFund, fund, "This contract did not keep track of funds properly.");
+    });
+
+    it(" should release funds during approval", async () => { 
+        let initialReceiverBalance = await getBalance(expectReceiver);
+        let initialContractBalance = await getBalance(crowdfund.address);
+
+        await crowdfund.approve( true, { from: expectVerifier});
+        let finalReceiverBalance = await getBalance(expectReceiver);
+        let finalContractBalance = await getBalance(crowdfund.address);
+
+        assert.equal(
+            finalContractBalance.valueOf(),
+            0, 
+            "The full balance of the contract was not transferred"
+        );
+ 
+        assert.equal(
+            finalReceiverBalance.minus(initialReceiverBalance).valueOf(),
+            initialContractBalance.valueOf(),
+            "The receiver did not receive the funds from the contract"); 
     });
 });
