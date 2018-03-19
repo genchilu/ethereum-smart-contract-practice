@@ -3,13 +3,14 @@ pragma solidity ^ 0.4.17;
 import "./ERC20.sol"; 
 
 contract ShopToken is ERC20 { 
-    uint totalShopTokens; mapping (address => uint) ledger; 
+    uint totalShopTokens; 
+    mapping (address => uint) ledger; 
     mapping (address => mapping (address => uint)) allowances; 
     string public name = "Shop Token";
     string public symbol = "SHT";
     uint8 public decimals = 18; 
 
-    function ShopToken( uint _totalShopTokens) { 
+    function ShopToken(uint _totalShopTokens) { 
         ledger[ msg.sender] = _totalShopTokens;
         totalShopTokens = _totalShopTokens; 
         
