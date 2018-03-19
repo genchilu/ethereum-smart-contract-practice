@@ -24,17 +24,17 @@ contract("Crowdfund", (accounts) => {
         crowdfund = await Crowdfund.new(expectVerifier, expectReceiver);
     });
 
-    it("should have verifier set correctly", async () => {
+    it(" should have verifier set correctly", async () => {
         let verifier = await crowdfund.verifier();
         assert.equal(expectVerifier, verifier, "The verifier account did not set correctly.");
     });
 
-    it("should have receiver set correctly", async () => {
+    it(" should have receiver set correctly", async () => {
         let receiver = await crowdfund.receiver();
         assert.equal(expectReceiver, receiver, "The receiver account did not set correctly.");
     });
 
-    it("should keep track of funds", async () => {
+    it(" should keep track of funds", async () => {
         await crowdfund.fund({
             from: funder,
             value: expectFund
@@ -61,5 +61,15 @@ contract("Crowdfund", (accounts) => {
             finalReceiverBalance.minus(initialReceiverBalance).valueOf(),
             initialContractBalance.valueOf(),
             "The receiver did not receive the funds from the contract"); 
+    });
+
+    it(" should prevent random accounts from calling approve", async () => { 
+        try { 
+            await crowdfund.approve( true, { from: expectReceiver}); 
+        } catch (error) {
+            assert(true, "Expected exception" ); 
+            return;
+        }
+        assert( false, "Expected throw not received");
     });
 });
