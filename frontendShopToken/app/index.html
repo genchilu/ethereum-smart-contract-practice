@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title> Shop Token ICO </title>
+    <link href ='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel ='stylesheet' type ='text/css'>
+  </head>
+  <body>
+    <div class ="intro">
+      <h1> Shop </h1>
+      <p> Over the course of the nexttwo years, we will develop Shop, a DApp for buying and selling goods in a decentralized manner. 
+        All transactions will take place using shop tokens, so to buy things from Shop, one must own shop tokens. 
+        Anyone can become a buyer or seller in this DApp. This will dIsRupT tHe oNlInE sHopPinG iNduStrY.
+      </p>
+      <h2>Shop ICO </h2>
+      <p> The best way to get shop tokens is by buying them right now from the ICO while the price is low. 
+        The fund raised here will be used to <s> make me rich </s> fund the development of Shop. 
+        The deadline for the ICO is 14th October 2018. If the minimum funding goal of 300 Ether is not raised by then, 
+        you can get a refund from here. Otherwise, it will be withdrawn by the team to develop the DApp. 
+        The maximum funding is 500 Ether. One Shop Token costs 0.01 Ether.
+      </p>
+    </div>
+    <div class ="balance">
+      <p> Your current account holds<span id ="shop-token-balance"></span>Shop Tokens</p>
+      <p> The ICO holds <span id ="ico-shop-token-balance"></span> Shop Tokens </p>
+    </div>
+    <div class ="funding">
+      <p> ICO is ongoing, you can buy Shop Tokens with Ether! </p>
+      <div>
+        <div>
+          <input placeholder ="Amount" id ="amount"/>
+        </div>
+        <div>
+          <input placeholder ="Address to send tokens to (leave blank to use current account)" id ="send-token-address"/>
+        </div>
+      </div>
+      <div class ="button-container"> <button id ="buy"> Buy </button></div>
+    </div>
+    <div class ="refund">
+      <p>The ICO has failed. Use the form below to recover your Ether. </p>
+      <input placeholder =" Address to refund to (leave blank to use current)" id =" refund-address" />
+      <button id ="refund"> Refund </button> 
+    </div>
+    <div class ="success">
+      <p> The ICO was successful! Thank you for your cooperation. </p>
+    </div>
+    <script src ="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src ="./javascripts/app.js"></script>
+  </body>
+</html>
