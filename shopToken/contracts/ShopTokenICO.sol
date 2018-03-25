@@ -41,7 +41,7 @@ contract ShopTokenICO {
         _;
     }
 
-    function ShopTokenICO( address _shopToken, uint _price, uint _maxFunding, uint _fundingGoal, uint _deadline) {
+    function ShopTokenICO(address _shopToken, uint _price, uint _maxFunding, uint _fundingGoal, uint _deadline) {
         shopToken = ERC20(_shopToken);
         tokensPerEther = _price;
         maxFunding = _maxFunding;

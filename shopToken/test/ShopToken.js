@@ -1,7 +1,9 @@
 const ShopToken = artifacts.require("ShopToken");
-let contractOwner = "0x627306090abab3a6e1400e9345bc60c78a8bef57";
-let buyer = "0xf17f52151ebef6c7334fad080c5704d77216b732";
+
 contract("ShopToken", (accounts) => {
+    let contractOwner = accounts[0];
+    let buyer = accounts[1];
+
      it(" should fire Transfer event when transfer is called", async () => {
          let shopToken = await ShopToken.new("10000");
          let tx = await shopToken.transfer(buyer, "100", { from: contractOwner });

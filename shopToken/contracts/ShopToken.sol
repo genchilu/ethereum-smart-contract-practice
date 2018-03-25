@@ -11,36 +11,36 @@ contract ShopToken is ERC20 {
     uint8 public decimals = 18;
 
     function ShopToken(uint _totalShopTokens) {
-        ledger[ msg.sender] = _totalShopTokens;
+        ledger[msg.sender] = _totalShopTokens;
         totalShopTokens = _totalShopTokens;
     }
 
-    function balanceOf( address _owner) constant returns (uint) {
+    function balanceOf(address _owner) constant returns (uint) {
         return ledger[_owner];
     }
 
-    function transfer( address _to, uint _value) returns (bool) {
-        if( ledger[ msg.sender] >= _value && _value > 0) {
-            ledger[ msg.sender] -= _value;
+    function transfer(address _to, uint _value) returns (bool) {
+        if( ledger[msg.sender] >= _value && _value > 0) {
+            ledger[msg.sender] -= _value;
             ledger[_to] += _value;
-            Transfer( msg.sender, _to, _value);
+            Transfer(msg.sender, _to, _value);
             return true;
         } else{
             return false;
         }
     }
 
-    function approve( address _spender, uint _value) returns (bool) {
-        allowances[ msg.sender][_spender] = _value;
-        Approval( msg.sender, _spender, _value);
+    function approve(address _spender, uint _value) returns (bool) {
+        allowances[msg.sender][_spender] = _value;
+        Approval(msg.sender, _spender, _value);
         return true;
     }
 
-    function transferFrom( address _from, address _to, uint _value) returns (bool) {
-        if( allowances[_from][ msg.sender] >= _value && _value > 0 && ledger[_from] >= _value) {
+    function transferFrom(address _from, address _to, uint _value) returns (bool) {
+        if( allowances[_from][msg.sender] >= _value && _value > 0 && ledger[_from] >= _value) {
             ledger[_from] -= _value;
             ledger[_to] += _value;
-            allowances[_from][ msg.sender] -= _value;
+            allowances[_from][msg.sender] -= _value;
             Transfer(_from, _to, _value);
             return true;
         } else {
@@ -48,7 +48,7 @@ contract ShopToken is ERC20 {
         }
     }
 
-    function allowance( address _owner, address _spender) constant returns (uint) {
+    function allowance(address _owner, address _spender) constant returns (uint) {
         return allowances[_owner][_spender];
     }
 
