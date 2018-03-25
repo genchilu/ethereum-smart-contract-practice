@@ -1,4 +1,4 @@
-var Contract = artifacts.require("./Greeting.sol"); 
-module.exports = function( deployer) { 
-  deployer.deploy( Contract); 
+var Contract = artifacts.require("./Greeting.sol");
+module.exports = function( deployer) {
+  deployer.deploy( Contract);
 };

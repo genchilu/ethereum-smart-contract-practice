@@ -3,14 +3,14 @@ var expectReceiver = "0xf17f52151ebef6c7334fad080c5704d77216b732";
 var funder = "0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef";
 var expectFund = web3.toWei(1, "ether");
 
-var Crowdfund = artifacts.require("Crowdfund"); 
+var Crowdfund = artifacts.require("Crowdfund");
 
-let getBalance = (account) => { 
-    return new Promise( (resolve, error) => { 
+let getBalance = (account) => {
+    return new Promise( (resolve, error) => {
         web3. eth.getBalance(account, (err, balance) => {
-            if (err) { 
-                error( err); 
-            } else { 
+            if (err) {
+                error( err);
+            } else {
                 resolve( balance);
             }
         });
@@ -18,9 +18,9 @@ let getBalance = (account) => {
 };
 
 contract("Crowdfund", (accounts) => {
-    let crowdfund; 
+    let crowdfund;
 
-    beforeEach( async () => { 
+    beforeEach( async () => {
         crowdfund = await Crowdfund.new(expectVerifier, expectReceiver);
     });
 
@@ -60,14 +60,14 @@ contract("Crowdfund", (accounts) => {
         assert.equal(
             finalReceiverBalance.minus(initialReceiverBalance).valueOf(),
             initialContractBalance.valueOf(),
-            "The receiver did not receive the funds from the contract"); 
+            "The receiver did not receive the funds from the contract");
     });
 
-    it(" should prevent random accounts from calling approve", async () => { 
-        try { 
-            await crowdfund.approve( true, { from: expectReceiver}); 
+    it(" should prevent random accounts from calling approve", async () => {
+        try {
+            await crowdfund.approve( true, { from: expectReceiver});
         } catch (error) {
-            assert(true, "Expected exception" ); 
+            assert(true, "Expected exception" );
             return;
         }
         assert( false, "Expected throw not received");
