@@ -51,11 +51,12 @@ contract ShopTokenICO {
     }
 
     function begin() onlyOwner {
-        require( shopToken.balanceOf( this) >= (maxFunding * tokensPerEther)/( 1 ether));
+        require(shopToken.balanceOf(owner) >= (maxFunding * tokensPerEther)/(1 ether));
         started = true;
     } 
-    function buy( address tokensReceiver) payable ensureStarted beforeDeadline {
-        uint tokensBought = (msg.value * tokensPerEther)/( 1 ether);
+
+    function buy(address tokensReceiver) payable ensureStarted beforeDeadline {
+        uint tokensBought = (msg.value * tokensPerEther)/(1 ether);
         require( maxFunding >= msg.value + this.balance);
         require( shopToken.transfer( tokensReceiver, tokensBought));
     }
@@ -78,10 +79,10 @@ contract ShopTokenICO {
     }
 
     function getTokensLeft() constant returns (uint) {
-        return shopToken.balanceOf( this);
+        return shopToken.balanceOf(owner);
     }
 
     function() payable {
-        buy( msg.sender);
+        buy(msg.sender);
     }
 }
