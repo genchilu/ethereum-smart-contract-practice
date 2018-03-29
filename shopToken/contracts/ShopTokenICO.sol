@@ -17,7 +17,7 @@ contract ShopTokenICO {
     }
 
     modifier onlyOwner() {
-        require( msg.sender == owner);
+        require(msg.sender == owner);
         _;
     }
 
@@ -27,7 +27,7 @@ contract ShopTokenICO {
     }
 
     modifier beforeDeadline() {
-        require( deadline >= now);
+        require(deadline >= now);
         _;
     }
 
@@ -51,18 +51,18 @@ contract ShopTokenICO {
     }
 
     function begin() onlyOwner {
-        require(shopToken.balanceOf(owner) >= (maxFunding * tokensPerEther)/(1 ether));
+        require(shopToken.balanceOf(this) >= (maxFunding * tokensPerEther)/(1 ether));
         started = true;
-    } 
+    }
 
     function buy(address tokensReceiver) payable ensureStarted beforeDeadline {
         uint tokensBought = (msg.value * tokensPerEther)/(1 ether);
-        require( maxFunding >= msg.value + this.balance);
-        require( shopToken.transfer( tokensReceiver, tokensBought));
+        require(maxFunding >= msg.value + this.balance);
+        require(shopToken.transfer(tokensReceiver, tokensBought));
     }
 
-    function withdraw( address receiver) onlyOwner ensureWithdrawalAllowed {
-        receiver.transfer( this.balance);
+    function withdraw(address receiver) onlyOwner ensureWithdrawalAllowed {
+        receiver.transfer(this.balance);
     }
 
     function sell( address receiver, uint value) ensureRefundingAllowed {

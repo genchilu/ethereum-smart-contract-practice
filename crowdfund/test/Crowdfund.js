@@ -20,7 +20,7 @@ contract("Crowdfund", (accounts) => {
 
     let crowdfund;
 
-    beforeEach( async () => {
+    beforeEach(async () => {
         crowdfund = await Crowdfund.new(expectVerifier, expectReceiver);
     });
 
