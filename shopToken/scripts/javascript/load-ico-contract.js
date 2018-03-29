@@ -468,8 +468,8 @@ var shopTokenAbi = [
   }
 ];
 
-var ShopTokenAddress = "0x7f33f96c36804d326b296f441655c977ed30b5a4";
-var ShopTokenICOAddress = "0x0666816e13145eeb847d38ac956b6085c392fd8b";
+var ShopTokenAddress = "0xadad017f2ff19b2fb69fae94022d1098de36c353";
+var ShopTokenICOAddress = "0x2b5328bfda98c7a3c1728c53943c06cc215c7030";
 
 var ShopToken = eth.contract(shopTokenAbi);
 var ShopTokenICO = eth.contract(shopTokenICOAbi);

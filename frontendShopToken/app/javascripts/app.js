@@ -15,10 +15,13 @@ var ShopToken = contract(shopTokenArtifacts);
 var ShopTokenICO = contract(shopTokenICOArtifacts);
 var accounts, shopToken, shopTokenICO, shopTokenBalance;
 
+var ShopTokenAddress = "0xadad017f2ff19b2fb69fae94022d1098de36c353";
+var ShopTokenICOAddress = "0x2b5328bfda98c7a3c1728c53943c06cc215c7030";
+
 window.App = {
   start: function () {
-    ShopToken.setProvider( web3.currentProvider);
-    ShopTokenICO.setProvider( web3. currentProvider);
+    ShopToken.setProvider(web3.currentProvider);
+    ShopTokenICO.setProvider(web3.currentProvider);
     web3.eth.getAccounts( function (err, accs) {
       console.log( accs);
       if (err != null) {
@@ -30,9 +33,9 @@ window.App = {
         return;
       }
       accounts = accs;
-      ShopToken.deployed().then( function (instance) {
+      ShopToken.at(ShopTokenAddress).then(function (instance) {
         shopToken = instance;
-        return ShopTokenICO.deployed();
+        return ShopTokenICO.at(ShopTokenICOAddress);
       }).then(function (instance) {
         shopTokenICO = instance;
         var transfers = shopToken.Transfer();
@@ -64,11 +67,19 @@ window.App = {
   },
 
   refreshBalance: function () {
-    shopToken.balanceOf( accounts[0]).then( function (balance) {
+    console.log('refresh balance');
+    shopToken.balanceOf(accounts[0]).then(function (balance) {
+      console.log('shop-token-balance');
+      console.log(balance.valueOf());
       $("#shop-token-balance").html(balance.valueOf());
     }); 
-    shopTokenICO.getTokensLeft().then( function (balance) {
-      $("# ico-shop-token-balance").html( balance.valueOf());
+    shopToken.totalSupply().then(function (totalSupply) {
+      console.log('total supply');
+      console.log(totalSupply);
+    })
+    shopTokenICO.getTokensLeft().then(function (balance) {
+      console.log('ico-shop-token-balance');
+      $("#ico-shop-token-balance").html( balance.valueOf());
     });
   },
 
@@ -81,7 +92,9 @@ window.App = {
       alert(" You must buy at least 1 Shop Token");
       return;
     }
-    var value = web3.toWei(amount/ 100, "ether");
+    console.log("I wanna buy");
+    console.log(amount/100);
+    var value = web3.toWei(amount/100, "ether");
     shopTokenICO
       .buy(receiver, { value: value, from: accounts[0]})
       .catch(function (error) {

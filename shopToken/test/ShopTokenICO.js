@@ -29,6 +29,6 @@ contract("ShopTokenICO", (accounts) => {
 
     it(" could buy after begin", async () => {
         shopTokenICO.begin();
-        let tmp = await shopTokenICO.buy(buyer, {from: buyer, value: web3.toWei(1, "ether")});
+        await shopTokenICO.buy(buyer, {from: buyer, value: web3.toWei(1, "ether")});
     });
 });
